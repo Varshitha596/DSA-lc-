@@ -1,0 +1,36 @@
+class Solution(object):
+    def maxProfit(self, k, prices):
+
+        memo = {}
+
+        def dfs(i, buying, cap):
+
+            if i == len(prices) or cap == 0:
+                return 0
+
+            if (i, buying, cap) in memo:
+                return memo[(i, buying, cap)]
+
+            cooldown = dfs(i + 1, buying, cap)
+
+            if buying:
+
+                buy = dfs(i + 1, False, cap) - prices[i]
+
+                memo[(i, buying, cap)] = max(
+                    buy,
+                    cooldown
+                )
+
+            else:
+
+                sell = dfs(i + 1, True, cap - 1) + prices[i]
+
+                memo[(i, buying, cap)] = max(
+                    sell,
+                    cooldown
+                )
+
+            return memo[(i, buying, cap)]
+
+        return dfs(0, True, k)
