@@ -1,0 +1,13 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        freq={}
+        for n in nums:
+            freq[n]=freq.get(n,0)+1
+        for n in freq:
+            if(freq[n]!=3) :
+                return n 
+                  
